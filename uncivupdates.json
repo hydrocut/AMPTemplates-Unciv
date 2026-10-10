@@ -1,0 +1,32 @@
+[
+    {
+        "UpdateStageName": "Telechargement de UncivServer.jar",
+        "UpdateSourcePlatform": "All",
+        "UpdateSource": "GithubRelease",
+        "UpdateSourceArgs": "yairm210/Unciv",
+        "UpdateSourceData": "UncivServer.jar",
+        "UpdateSourceVersion": "{{ServerVersion}}",
+        "UpdateSourceTarget": "{{$FullBaseDir}}",
+        "UnzipUpdateSource": false,
+        "OverwriteExistingFiles": true,
+        "SkipOnFailure": false
+    },
+    {
+        "UpdateStageName": "Telechargement de Java (Eclipse Temurin)",
+        "UpdateSourcePlatform": "Linux",
+        "UpdateSourceArch": "x86_64",
+        "UpdateSource": "Executable",
+        "UpdateSourceData": "/bin/bash",
+        "UpdateSourceArgs": "-c \"cd unciv && if [[ -x java/bin/java ]]; then InstalledVersion=$(java/bin/java --version | grep \\\"Temurin-\\\" | head -n1 | sed -n \\\"s/.*Temurin-\\\\([^[:space:]]\\\\+\\\\).*/\\\\1/p\\\"); else InstalledVersion=\\\"\\\"; fi; LatestVersionBuild=$(wget -qO- \\\"https://api.adoptium.net/v3/assets/latest/{{JavaVersion}}/hotspot?architecture=x64&image_type=jdk&os=linux&vendor=eclipse\\\" | jq -r \\\".[0].version.openjdk_version\\\" | sed \\\"s/-LTS$//\\\"); if [[ \\\"$InstalledVersion\\\" == \\\"$LatestVersionBuild\\\" ]]; then echo \\\"Eclipse Temurin Java $LatestVersionBuild already installed. Skipping\\\" && exit 0; else [[ -f java.tar.gz ]] && rm -f java.tar.gz >/dev/null 2>&1; wget -qO java.tar.gz https://api.adoptium.net/v3/binary/latest/{{JavaVersion}}/ga/linux/x64/jdk/hotspot/normal/eclipse || { echo \\\"Download failed from the Eclipse Temurin CDN. This is a fault with the CDN, not AMP. Aborting\\\"; exit 1; }; mkdir -p java && rm -rf java/* >/dev/null 2>&1 && tar -xzf java.tar.gz -C java --strip-components=1 >/dev/null 2>&1 && rm -f java.tar.gz >/dev/null 2>&1 && chmod +x java/bin/java && echo \\\"Eclipse Temurin Java $LatestVersionBuild downloaded\\\"; fi\"",
+        "SkipOnFailure": false
+    },
+    {
+        "UpdateStageName": "Creation de logback.xml",
+        "UpdateSourcePlatform": "All",
+        "UpdateSource": "CreateFile",
+        "UpdateSourceData": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!--\n  logback.xml - pose par le template AMP TeamKit (jamais ecrase par un Update).\n\n  UncivServer.jar embarque logback mais aucun fichier de reglage : sans\n  celui-ci, logback passe en niveau DEBUG et la console d'AMP recoit une\n  cinquantaine de lignes de Netty a chaque demarrage. AMP le designe a Java\n  par -Dlogback.configurationFile=logback.xml.\n-->\n<configuration>\n  <appender name=\"CONSOLE\" class=\"ch.qos.logback.core.ConsoleAppender\">\n    <encoder>\n      <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %msg%n</pattern>\n    </encoder>\n  </appender>\n  <root level=\"INFO\">\n    <appender-ref ref=\"CONSOLE\" />\n  </root>\n</configuration>\n",
+        "UpdateSourceArgs": "{{$FullBaseDir}}logback.xml",
+        "OverwriteExistingFiles": false,
+        "SkipOnFailure": false
+    }
+]

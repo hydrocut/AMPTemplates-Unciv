@@ -1,0 +1,9 @@
+[
+    {
+        "Protocol": "TCP",
+        "Port": 8080,
+        "Ref": "ServerPort",
+        "Name": "Port HTTP du serveur",
+        "Description": "Le seul port a ouvrir. Les joueurs tapent http://IP:ce-port dans Options > Multijoueur > Adresse du serveur. Le chat en partie passe par ce meme port (WebSocket /chat)."
+    }
+]

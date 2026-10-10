@@ -1,0 +1,118 @@
+[
+    {
+        "DisplayName": "Authentification des joueurs",
+        "Category": "Unciv:public",
+        "Subcategory": "Accès et chat:lock:1",
+        "Description": "Activée : chaque joueur peut poser un mot de passe sur son identifiant (Options > Multijoueur > « Définir le mot de passe », 6 caractères minimum), et plus personne ne peut jouer ses tours à sa place. Sans mot de passe posé, rien ne change pour lui. Désactivée : n'importe qui connaissant l'identifiant d'un joueur et l'ID d'une partie peut la modifier, et le chat ne marche plus. Option -auth / -no-auth du serveur.",
+        "Keywords": "auth,authentification,mot de passe,password,securite",
+        "FieldName": "UncivAuth",
+        "InputType": "enum",
+        "ParamFieldName": "UncivAuth",
+        "IncludeInCommandLine": false,
+        "DefaultValue": "-auth",
+        "EnumValues": {
+            "-auth": "Activée (recommandé)",
+            "-no-auth": "Désactivée"
+        }
+    },
+    {
+        "DisplayName": "Chat en partie",
+        "Category": "Unciv:public",
+        "Subcategory": "Accès et chat:lock:1",
+        "Description": "Relaie les messages entre les joueurs d'une même partie. Ne fonctionne que si l'authentification est activée ET que le joueur a posé un mot de passe : le serveur refuse le chat à un identifiant sans mot de passe. Option -chat / -no-chat du serveur.",
+        "Keywords": "chat,messages,websocket",
+        "FieldName": "UncivChat",
+        "InputType": "enum",
+        "ParamFieldName": "UncivChat",
+        "IncludeInCommandLine": false,
+        "DefaultValue": "-chat",
+        "EnumValues": {
+            "-chat": "Activé (recommandé)",
+            "-no-chat": "Désactivé"
+        }
+    },
+    {
+        "DisplayName": "Afficher l'adresse IP des joueurs dans la console",
+        "Category": "Unciv:public",
+        "Subcategory": "Accès et chat:lock:1",
+        "Description": "Ajoute l'IP de l'expéditeur à chaque dépôt ou lecture de partie dans la console. Utile pour retrouver un fauteur de troubles, mais une adresse IP est une donnée personnelle : à n'activer que le temps d'une enquête. Option -Identify / -no-Identify du serveur.",
+        "Keywords": "ip,identify,journal,log,moderation",
+        "FieldName": "UncivIdentify",
+        "InputType": "enum",
+        "ParamFieldName": "UncivIdentify",
+        "IncludeInCommandLine": false,
+        "DefaultValue": "-no-Identify",
+        "EnumValues": {
+            "-no-Identify": "Non (recommandé)",
+            "-Identify": "Oui"
+        }
+    },
+    {
+        "DisplayName": "Dossier des parties",
+        "Category": "Unciv:public",
+        "Subcategory": "Serveur:dns:2",
+        "Description": "Où le serveur range les parties (un fichier par partie, plus un fichier _Preview). Chemin relatif au dossier du serveur. Le serveur le crée s'il n'existe pas. Changer ce dossier ne déplace PAS les parties existantes : elles resteraient dans l'ancien. Le serveur ne supprime jamais une partie terminée. Option -f du serveur.",
+        "Keywords": "dossier,folder,parties,sauvegardes,multiplayerfiles",
+        "FieldName": "MultiplayerFolder",
+        "InputType": "text",
+        "ParamFieldName": "MultiplayerFolder",
+        "IncludeInCommandLine": false,
+        "DefaultValue": "MultiplayerFiles",
+        "EnumValues": {}
+    },
+    {
+        "DisplayName": "Version du serveur",
+        "Category": "Unciv:public",
+        "Subcategory": "Serveur:dns:2",
+        "Description": "Numéro de release GitHub à installer, par exemple 4.22.8. Vide = dernière version (par défaut). Faire Update après un changement.",
+        "Keywords": "version,release,mise a jour",
+        "FieldName": "ServerVersion",
+        "InputType": "text",
+        "ParamFieldName": "ServerVersion",
+        "IncludeInCommandLine": false,
+        "DefaultValue": "",
+        "EnumValues": {}
+    },
+    {
+        "DisplayName": "Version de Java",
+        "Category": "Unciv:public",
+        "Subcategory": "Java:code:3",
+        "Description": "Java Eclipse Temurin téléchargé dans le dossier du serveur à l'Update. 21 et 25 ont été testés avec UncivServer 4.22.8. Faire Update après un changement.",
+        "Keywords": "java,version,temurin",
+        "FieldName": "JavaVersion",
+        "InputType": "enum",
+        "ParamFieldName": "JavaVersion",
+        "IncludeInCommandLine": false,
+        "DefaultValue": "21",
+        "EnumValues": {
+            "21": "21 - LTS (par défaut)",
+            "25": "25 - LTS"
+        }
+    },
+    {
+        "DisplayName": "Mémoire maximale de Java (Mo)",
+        "Category": "Unciv:public",
+        "Subcategory": "Java:code:3",
+        "Description": "Plafond de la mémoire de travail (-Xmx). Le serveur au repos occupe environ 120 Mo en tout. 512 laisse de la marge pour plusieurs grosses parties lues en même temps.",
+        "Keywords": "memoire,ram,xmx,java",
+        "FieldName": "JavaMaxMemory",
+        "InputType": "number",
+        "ParamFieldName": "JavaMaxMemory",
+        "IncludeInCommandLine": false,
+        "DefaultValue": "512",
+        "EnumValues": {}
+    },
+    {
+        "DisplayName": "Paramètres Java supplémentaires",
+        "Category": "Unciv:public",
+        "Subcategory": "Java:code:3",
+        "Description": "Arguments passés à Java (pas au serveur), avant -jar. À laisser vide sauf besoin précis. Avec Java 25, la console affiche un avertissement sans conséquence (« A restricted method in java.lang.System has been called ») ; Java lui-même conseille --enable-native-access=ALL-UNNAMED pour le faire taire.",
+        "Keywords": "java,arguments,parametres",
+        "FieldName": "CustomJavaArgs",
+        "InputType": "text",
+        "ParamFieldName": "CustomJavaArgs",
+        "IncludeInCommandLine": false,
+        "DefaultValue": "",
+        "EnumValues": {}
+    }
+]

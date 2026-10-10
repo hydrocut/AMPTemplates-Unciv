@@ -1,0 +1,11 @@
+# Ce depot ne contient que le template : UncivServer.jar et Java sont
+# telecharges au moment de l'Update dans AMP.
+*.jar
+java/
+MultiplayerFiles/
+server.auth
+*.log
+__pycache__/
+
+# Notes internes de TeamKit (essais, etapes), pas dans le depot public
+FAISABILITE.md
