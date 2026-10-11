@@ -124,8 +124,9 @@ for c in config:
 for p in ports:
     ligne = ligne.replace('{{$%s}}' % p['Ref'], str(p['Port']))
 ligne = ' '.join(ligne.split())
+# Essai du 10/10 fait avec -p 8080 ; défaut passé à 8180 le 11/10 (8080 = port web d'AMP sur le dédié).
 ESSAI = ('-Xmx512m -Dlogback.configurationFile=logback.xml -jar UncivServer.jar '
-         '-p 8080 -f "MultiplayerFiles" -auth -chat -no-Identify')
+         '-p 8180 -f "MultiplayerFiles" -auth -chat -no-Identify')
 if ligne != ESSAI:
     soucis.append('ligne de commande par défaut différente de celle testée :\n       %s\n       %s' % (ligne, ESSAI))
 else:

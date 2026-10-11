@@ -18,7 +18,8 @@ Consequences for AMP:
   there is no join/leave line to read. `App.MaxUsers=0`, as in CubeCoders'
   non-game templates (MariaDB, Node, code-server). Activity shows up in the
   console instead (`Receiving file: <game id>`, `File requested: <game id>_Preview`).
-- **One TCP port** (8080 by default). Chat uses the same port (WebSocket `/chat`).
+- **One TCP port** (8180 by default: 8080, Unciv's own default, is AMP's web port on the TeamKit
+  server). Chat uses the same port (WebSocket `/chat`).
 - Opening `http://IP:port/` in a browser gives **404 — that is normal**, there
   is no page at `/`. The health route is `/isalive`.
 
@@ -36,11 +37,12 @@ Java stage needs — checked). Container is supported, not required.
 Command line built by AMP (defaults):
 
 ```
-java/bin/java -Xmx512m -Dlogback.configurationFile=logback.xml -jar UncivServer.jar -p 8080 -f "MultiplayerFiles" -auth -chat -no-Identify
+java/bin/java -Xmx512m -Dlogback.configurationFile=logback.xml -jar UncivServer.jar -p 8180 -f "MultiplayerFiles" -auth -chat -no-Identify
 ```
 
-This exact line was run in a throwaway container on 10 Oct. 2026 (see
-`FAISABILITE.md`); `verifier.py` checks that the template still produces it.
+This line was run in a throwaway container on 10 Oct. 2026 with `-p 8080` (see
+`FAISABILITE.md`); the default port moved to 8180 on 11 Oct. 2026, nothing else changed.
+`verifier.py` checks that the template still produces it.
 
 ## Server options — where each one comes from
 
@@ -60,7 +62,7 @@ ON by default**, Identify is off. Defaults: port `8080`, folder `MultiplayerFile
 
 | AMP setting (French UI) | Flag | Default |
 |---|---|---|
-| Port HTTP du serveur (Network tab) | `-p` | 8080/TCP |
+| Port HTTP du serveur (Network tab) | `-p` | 8180/TCP |
 | Authentification des joueurs | `-auth` / `-no-auth` | `-auth` |
 | Chat en partie | `-chat` / `-no-chat` | `-chat` |
 | Afficher l'adresse IP des joueurs | `-Identify` / `-no-Identify` | `-no-Identify` (an IP is personal data) |
@@ -189,7 +191,7 @@ GitHub releases at Update time.
 
 Template AMP pour le **serveur multijoueur officiel d'Unciv** (`UncivServer.jar`,
 releases GitHub). Le serveur est un simple **serveur HTTP de fichiers de parties** :
-un seul port TCP (8080), pas de connexion permanente, donc **pas de liste de
+un seul port TCP (8180 par défaut), pas de connexion permanente, donc **pas de liste de
 joueurs dans AMP** (toujours 0, c'est normal).
 
 - **Se connecter** : dans Unciv, Options → Multijoueur → « Adresse du serveur » :
